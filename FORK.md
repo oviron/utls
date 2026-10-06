@@ -10,6 +10,11 @@ Branch `oviron` = MetaCubeX branch `v1.9.0-mod-meta` plus:
   (refraction-networking/utls#427). It matches the Firefox 158 capture in
   `testdata/firefox158_clienthello.{hex,md}` field by field.
 - A 240-byte GREASE ECH payload for Firefox 158, as Firefox 155+ sends (NSS 3.127).
+- `HelloChrome_155` from refraction-networking/utls master (6ebdceb, verified
+  against a fresh Chrome 155 capture in `testdata/chrome155_clienthello.{hex,md}`).
+  `HelloChrome_Auto` stays Chrome 133. This base has no ML-DSA, so the ML-DSA
+  codepoints are declared only to be offered in signature_algorithms, and the
+  upstream ML-DSA handshake test is dropped.
 - Every classical key share keeps its private key, so a server that picks P-256
   over X25519 still completes the handshake (refraction-networking/utls#433).
 

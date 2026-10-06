@@ -41,6 +41,7 @@ const (
 	utlsFakeExtensionCustom             uint16 = 1234   // not IANA assigned, for ALPS
 	utlsExtensionECH                    uint16 = 0xfe0d // draft-ietf-tls-esni-17
 	utlsExtensionECHOuterExtensions     uint16 = 0xfd00 // draft-ietf-tls-esni-17
+	utlsExtensionTrustAnchors           uint16 = 0xca34 // draft-ietf-tls-trust-anchor-ids
 
 	// extensions with 'fake' prefix break connection, if server echoes them back
 	fakeExtensionEncryptThenMAC       uint16 = 22
@@ -646,6 +647,9 @@ var (
 	HelloChrome_131 = ClientHelloID{helloChrome, "131", nil, nil}
 	// Chrome w/ New ALPS codepoint
 	HelloChrome_133 = ClientHelloID{helloChrome, "133", nil, nil}
+	// Chrome 155.0.8059.40 on macOS, with ML-DSA signatures and a snapshot of
+	// the Chrome Root Store trust anchor IDs. See testdata/chrome155_clienthello.md.
+	HelloChrome_155 = ClientHelloID{helloChrome, "155", nil, nil}
 
 	HelloIOS_Auto = HelloIOS_14
 	HelloIOS_11_1 = ClientHelloID{helloIOS, "111", nil, nil} // legacy "111" means 11.1
