@@ -253,6 +253,7 @@ will prepare ClientHello with empty uconn.Extensions so you can fill it with TLS
 	* `utls.HelloChrome_58` - parrots Google Chrome 58
 	* `utls.HelloFirefox_Auto` - parrots recommended(usually latest) Firefox version
 	* `utls.HelloFirefox_55` - parrots Firefox 55
+	* `utls.HelloFirefox_158` - parrots a fresh Firefox 158.0 connection on Linux in normal browsing mode
 	
 # Usage
 ## Examples
