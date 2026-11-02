@@ -18,7 +18,7 @@ Branch `oviron-refraction` = upstream `master` (`ff1b50f`, past v1.8.2) plus:
 `HelloFirefox_120` is unchanged.
 
 Branch `oviron` carries the same changes on metacubex/utls for consumers of that
-module (mihomo, sing-box).
+module (mihomo).
 
 Tags: `v1.8.3-refraction.<n>`, after the version Go gives commits past v1.8.2
 (`v1.8.3-0.<date>-<hash>`). To move to a newer upstream `master`, rebase the
