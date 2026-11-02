@@ -35,5 +35,6 @@ Notes:
   browsing ClientHello.
 - GREASE ECH: the HPKE AEAD alternates between AES-128-GCM and
   ChaCha20-Poly1305 across connections. The payload was 240 bytes in 12 of 12
-  Firefox 158 captures, while Firefox 148 sent both 239 and 240 bytes, so
-  `HelloFirefox_158` keeps the 239-byte payload used by `HelloFirefox_148`.
+  Firefox 158 captures, while Firefox 148 sent both 239 and 240 bytes. Firefox
+  155 ships NSS 3.127, which fixed the inner-hello padding (NSS bug 2060720),
+  so `HelloFirefox_158` uses the 240-byte payload.
