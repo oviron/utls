@@ -28,7 +28,7 @@ func classicalKeyShareGroups(spec *ClientHelloSpec) []CurveID {
 // handshake with it, without a HelloRetryRequest.
 func TestUTLSEveryClassicalKeyShareIsUsable(t *testing.T) {
 	specs := map[string]*ClientHelloSpec{}
-	for _, id := range []ClientHelloID{HelloFirefox_105, HelloFirefox_120, HelloFirefox_148} {
+	for _, id := range []ClientHelloID{HelloFirefox_105, HelloFirefox_120, HelloFirefox_148, HelloFirefox_158} {
 		spec, err := utlsIdToSpec(id)
 		if err != nil {
 			t.Fatal(err)
