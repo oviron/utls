@@ -1710,7 +1710,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 							AeadId: dicttls.AEAD_CHACHA20_POLY1305,
 						},
 					},
-					CandidatePayloadLens: []uint16{223}, // +16: 239
+					CandidatePayloadLens: []uint16{224}, // +16: 240
 				},
 			},
 		}, nil
