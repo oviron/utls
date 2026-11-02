@@ -53,8 +53,11 @@ func TestUTLSEveryClassicalKeyShareIsUsable(t *testing.T) {
 		}
 		for _, group := range groups {
 			t.Run(fmt.Sprintf("%s/%v", name, group), func(t *testing.T) {
-				clientConfig := testConfigClient.Clone()
-				serverConfig := testConfigServer.Clone()
+				clientConfig, serverConfig := testConfig.Clone(), testConfig.Clone()
+				serverConfig.Certificates = []Certificate{{
+					Certificate: [][]byte{testP256Certificate},
+					PrivateKey:  testP256PrivateKey,
+				}}
 				serverConfig.CurvePreferences = []CurveID{group}
 				_, state, err := testUtlsHandshake(t, clientConfig, serverConfig, spec)
 				if err != nil {
