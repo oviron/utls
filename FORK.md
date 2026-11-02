@@ -15,6 +15,10 @@ Branch `oviron` = MetaCubeX branch `v1.9.0-mod-meta` plus:
 
 `HelloChrome_Auto` (Chrome 133) and `HelloFirefox_120` are unchanged from the base.
 
+Branch `oviron-refraction` carries the same changes on
+[refraction-networking/utls](https://github.com/refraction-networking/utls) for
+consumers of that module (Xray in [oviron/Throne](https://github.com/oviron/Throne)).
+
 Tags: `v<base>-oviron.<n>`, for example `v1.9.0-oviron.1`. To move to a new base,
 rebase `oviron` onto it, run `go test ./...`, tag the next number, and drop the
 picks that upstream has merged.
