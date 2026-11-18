@@ -3,7 +3,6 @@ package tls
 import (
 	"encoding/json"
 	"fmt"
-	"slices"
 	"testing"
 
 	"github.com/metacubex/utls/dicttls"
@@ -46,7 +45,7 @@ func TestMLDSASignatureSchemeJSON(t *testing.T) {
 				t.Fatalf("unexpected extension type %T", ext)
 			}
 			want := []SignatureScheme{GREASE_PLACEHOLDER, MLDSA44, MLDSA65, MLDSA87}
-			if !slices.Equal(got, want) {
+			if !testSliceEqual(got, want) {
 				t.Fatalf("signature algorithms = %x, want %x", got, want)
 			}
 		})

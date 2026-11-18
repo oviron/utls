@@ -11,7 +11,6 @@ import (
 	"net"
 	"os"
 	"reflect"
-	"slices"
 	"sort"
 	"strings"
 	"testing"
@@ -113,7 +112,7 @@ func chrome155NormalizeExtension(t *testing.T, id uint16, body []byte) string {
 		outer, kdf, aead := r.number(1), r.number(2), r.number(2)
 		r.take(1) // randomized config_id
 		enc, payload := r.vector(2), r.vector(2)
-		if outer != 0 || !slices.Contains([]int{144, 176, 208, 240}, len(payload)) {
+		if outer != 0 || !testSliceContains([]int{144, 176, 208, 240}, len(payload)) {
 			t.Fatalf("unexpected GREASE ECH shape: outer=%d, payload length=%d", outer, len(payload))
 		}
 		value = fmt.Sprintf("%d/%d/%d/enc=%d/payload=144,176,208,240", outer, kdf, aead, len(enc))
@@ -253,7 +252,7 @@ func TestChrome155DefaultFingerprintRoundTrip(t *testing.T) {
 	client := chrome155Build(t, HelloCustom, chrome155FixtureServerName(t, raw), spec)
 	got, gotOrder, _ := chrome155ParseWire(t, client.HandshakeState.Hello.Raw)
 	chrome155CompareWire(t, want, got)
-	if !slices.Equal(gotOrder, wantOrder) {
+	if !testSliceEqual(gotOrder, wantOrder) {
 		t.Errorf("fingerprint roundtrip reordered extensions: got %x, want %x", gotOrder, wantOrder)
 	}
 	if chrome155TrustAnchors(t, spec.Extensions) == nil {
@@ -354,10 +353,33 @@ func TestChrome133CapabilitiesPreserved(t *testing.T) {
 		uint16(ECDSAWithP384AndSHA384), uint16(PSSWithSHA384), uint16(PKCS1WithSHA384),
 		uint16(PSSWithSHA512), uint16(PKCS1WithSHA512),
 	}
-	if !slices.Equal(got, want) {
+	if !testSliceEqual(got, want) {
 		t.Fatalf("Chrome 133 signature schemes changed: got %x, want original classical schemes %x", got, want)
 	}
 	if _, ok := raw[0xca34]; ok {
 		t.Fatal("Chrome 155 trust anchor IDs leaked into the Chrome 133 profile")
 	}
+}
+
+// testSliceEqual and testSliceContains stand in for the slices package, which
+// the Go 1.20 floor of this module does not have.
+func testSliceEqual[T comparable](a, b []T) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
+
+func testSliceContains[T comparable](s []T, v T) bool {
+	for _, x := range s {
+		if x == v {
+			return true
+		}
+	}
+	return false
 }
