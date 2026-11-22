@@ -17,6 +17,11 @@ Branch `oviron` = MetaCubeX branch `v1.9.0-mod-meta` plus:
   upstream ML-DSA handshake test is dropped.
 - Every classical key share keeps its private key, so a server that picks P-256
   over X25519 still completes the handshake (refraction-networking/utls#433).
+- `github.com/klauspost/compress` v1.20.4 instead of v1.17.9: before v1.20.2 a
+  crafted zstd stream panics the decoder on its own goroutine
+  ([GHSA-fpmh-frq8-7rj8](https://github.com/klauspost/compress/security/advisories/GHSA-fpmh-frq8-7rj8)),
+  and this package decompresses zstd-compressed certificates, which Firefox 158
+  offers. v1.20.4 needs Go 1.25, so the `go` line goes from 1.20 to 1.25.
 
 `HelloChrome_Auto` (Chrome 133) and `HelloFirefox_120` are unchanged from the base.
 
