@@ -13,6 +13,11 @@ Branch `oviron-refraction` = upstream `master` (`ff1b50f`, past v1.8.2) plus:
 - A 240-byte GREASE ECH payload for Firefox 158, as Firefox 155+ sends (NSS 3.127).
 - Every classical key share keeps its private key, so a server that picks P-256
   over X25519 still completes the handshake (refraction-networking/utls#433).
+- `github.com/klauspost/compress` v1.20.4 instead of v1.20.1: before v1.20.2 a
+  crafted zstd stream panics the decoder on its own goroutine
+  ([GHSA-fpmh-frq8-7rj8](https://github.com/klauspost/compress/security/advisories/GHSA-fpmh-frq8-7rj8)),
+  and this package decompresses zstd-compressed certificates, which Firefox 158
+  offers.
 
 `HelloChrome_Auto` is Chrome 155 on this base, as in upstream `master`;
 `HelloFirefox_120` is unchanged.
